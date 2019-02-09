@@ -1,0 +1,45 @@
+apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+
+android {
+    compileSdkVersion project.androidCompileSdkVersion
+    buildToolsVersion ("$androidBuildToolsVersion")
+
+    defaultConfig {
+        minSdkVersion project.androidMinSdkVersion
+        targetSdkVersion project.androidTargetSdkVersion
+        applicationId "com.stepstone.apprating.sample"
+        versionCode 1
+        versionName "1.0"
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    flavorDimensions "sample"
+
+    productFlavors {
+        first {
+            applicationId = "com.stepstone.apprating.sample.first"
+            buildConfigField "String", "GROUP", "\"first\""
+        }
+
+        second {
+            applicationId = "com.stepstone.apprating.sample.second"
+            buildConfigField "String", "GROUP", "\"second\""
+        }
+    }
+    buildToolsVersion project.androidBuildToolsVersion
+}
+
+dependencies {
+    implementation project(':app-rating')
+    implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version")
+    implementation ("com.android.support:appcompat-v7:$androidSupportLibraryVersion")
+    testImplementation 'junit:junit:4.12'
+}
